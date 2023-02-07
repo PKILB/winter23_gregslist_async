@@ -24,7 +24,12 @@ function _drawCars() {
 export class CarsController {
   constructor () {
     this.getCars()
+    this.show()
     appState.on('cars', _drawCars)
+  }
+
+  show() {
+    _drawCars
   }
 
   // ✅ READ || GET
