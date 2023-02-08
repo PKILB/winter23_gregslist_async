@@ -35,7 +35,7 @@ async createHouse() {
         window.event.preventDefault()
         const form = window.event.target
         const formData = getFormData(form)
-        await housesService.createHouse(formdata)
+        await housesService.createHouse(formData)
     } catch (error) {
         console.error(error)
         Pop.error(error.message)
@@ -43,10 +43,21 @@ async createHouse() {
 
 }
 
+async removeHouse(houseId){
+    try {
+        if (await Pop.confirm()) {
+            await housesService.removeHouse(houseId)
+        }
+    } catch (error) {
+        console.error(error)
+        Pop.error(error.message)
+    }
+}
+
 drawForm(houseId) {
     try {
         if(houseId) {
-            let house = appState.cars.find(house => house.id == houseId)
+            let house = appState.houses.find(house => house.id == houseId)
             setHTML('modal-content', House.HouseForm(house))
         }
         else {
@@ -55,6 +66,18 @@ drawForm(houseId) {
     } catch (error) {
         console.error(error)
         Pop.error(error.message)
+    }
+}
+
+async editHouse(houseId) {
+    try {
+        window.event.preventDefault()
+        const form = window.event.target
+        const formData = getFormData(form)
+        await housesService.editHouse(formData, houseId)
+    } catch (error) {
+        console.error(error)
+        Pop.error(error.m)
     }
 }
 }
